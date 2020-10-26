@@ -1,4 +1,5 @@
 from sense_hat import SenseHat
+from time import sleep
 
 sense = SenseHat()
 sense.clear()
@@ -21,3 +22,7 @@ image_pixels = [
     S,S,B,B,B,B,S,S
     ]
 sense.set_pixels(image_pixels)
+
+while True:
+    sleep(1)
+    sense.flip_h()
