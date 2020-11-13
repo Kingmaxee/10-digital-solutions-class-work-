@@ -2,6 +2,7 @@ from sense_hat import SenseHat
 from time import sleep
 from random import randint
 import random
+import time
 sense = SenseHat()
 
 #All setup 
@@ -80,9 +81,10 @@ sense.set_pixels(clear)
 
 #Setup ends here
 anum = 1 
-
+ana = 0
 for num in range(1,10):
     anum =(random.randint(1,4))
+    pause =(random.randint(10,40)/15)
     if anum == 1:
         arrow = up_arrow
     elif anum == 2:
@@ -92,7 +94,27 @@ for num in range(1,10):
     else:
         anum == right_arrow
     sense.set_pixels(arrow)
-    print(anum)
-#while True:
- #   sleep(1)
-  #  sense.flip_h()
+    time.sleep(0.5)
+    sense.clear()
+    time.sleep(pause)
+    
+    #Checking for movment in the joystick
+    while ana != anum:
+        for event in sense.stick.get_events():
+       # Check if joystick is pressed
+            if event.action == 'pressed':
+            
+            # Check which direcion has been pressed
+                if event.direction == 'up':
+                    ana = 1
+                elif event.direction == 'down':
+                    ana = 2
+                elif event.direction == 'left':
+                    ana = 3 
+                elif event.direction == 'right':
+                    ana = 4
+  #Make function of calling the arrow, then just           
+
+    
+    
+
