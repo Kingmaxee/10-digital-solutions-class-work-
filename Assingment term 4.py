@@ -1,6 +1,4 @@
 from sense_hat import SenseHat
-from time import sleep
-from random import randint
 import random
 import time
 sense = SenseHat()
@@ -82,7 +80,8 @@ sense.set_pixels(clear)
 #Setup ends here
 anum = 1 
 ana = 0
-for num in range(1,10):
+clock = 0
+for num in range(1,11):
     anum =(random.randint(1,4))
     pause =(random.randint(10,40)/15)
     if anum == 1:
@@ -94,8 +93,7 @@ for num in range(1,10):
     else:
         anum == right_arrow
     sense.set_pixels(arrow)
-    time.sleep(0.5)
-    sense.clear()
+    start_time = time.time()
     time.sleep(pause)
     
     #Checking for movment in the joystick
@@ -110,11 +108,50 @@ for num in range(1,10):
                 elif event.direction == 'down':
                     ana = 2
                 elif event.direction == 'left':
-                    ana = 3 
+                    ana = 3
                 elif event.direction == 'right':
                     ana = 4
-  #Make function of calling the arrow, then just           
+                    
+                    
+                    
+    
+    
+  #Make function of calling the arrow, then just
+  # Calling time 
+  
+    sense.clear()
+    time.sleep(pause)
+    clock = round(time.time()-start_time,2)
+    print(clock)
+
+# adding the orientation feature 
 
     
     
 
+
+sense.show_letter("M")
+
+
+        
+a = sense.get_accelerometer_raw()
+x = a["x"]
+y = a["y"]
+z = a["z"]
+        
+x = int(round(x,0))
+y = int(round(y,0))
+z = int(round(z,0))
+        
+print(f"X:{x} Y:{y} Z:{z}")
+        
+if x == 1 :
+    sense.set_rotation(270)
+elif x == -1:
+    sense.set_rotation(90)
+elif y == -1:
+    sense.set_rotation(180)
+else:
+    sense.set_rotation(0)
+
+sense.show_message("Your current orientation is",f"X:{x} Y:{y} Z:{z}", text_colour=R, back_colour=N, scroll_speed=0.1)
